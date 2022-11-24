@@ -3,7 +3,7 @@ Simple implementation of client-server interaction using SSL authentication (for
 
 Quick start:  
 `$ git clone https://github.com/pschdl1c/SSL-socket-server.git`  
-`$ cd TPM`  
+`$ cd SSL-socket-server`  
 `$ conda create --name <env> --file requirements.txt`
 
 _Generate a self-signed server certificate:_
