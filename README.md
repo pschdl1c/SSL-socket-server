@@ -1,3 +1,4 @@
+## SSL socket server
 Simple implementation of client-server interaction using SSL authentication (for the server).
 
 Quick start:  
