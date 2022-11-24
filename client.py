@@ -52,6 +52,6 @@ class Client:
 if __name__ == '__main__':
     host = 'localhost'
     port = 10023
-    client = Client('.certificates/server.crt')
+    client = Client('certificates/server.crt')
     client.connect(host, port, 'localhost')
     client.start()
