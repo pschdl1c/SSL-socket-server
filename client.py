@@ -35,6 +35,7 @@ class Client:
         #Create new thread to wait for data
         receiveThread = threading.Thread(target = self.receive, args = (self.socket, True))
         receiveThread.start()
+        self.socket.sendall(str.encode(input('Name: ')))
         self.send_message()
 
     def send_message(self):

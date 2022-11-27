@@ -29,9 +29,14 @@ class Client(threading.Thread):
                 break
             if data != "":
                 print(f'ID {str(self.id)}: {str(data.decode("utf-8"))}')
-                for client in connections:
-                    if client.id != self.id:
-                        client.socket.sendall(data)
+                if data.decode("utf-8") == '/list':
+                    for client in connections:
+                        if client.id != self.id:
+                            client.socket.sendall(data)
+                else:
+                    for client in connections:
+                        if client.id != self.id:
+                            client.socket.sendall(str.encode(f'Name: {self.name} - ') + data)
 
 class Server:
     def __init__(self, cert_filename, key_filename):
@@ -53,10 +58,11 @@ class Server:
             sock, address = socket.accept()
             try:
                 wrapped_socket = self.context.wrap_socket(sock, server_side=True)
+                name = wrapped_socket.recv(32).decode("utf-8")
                 global total_connections
-                connections.append(Client(wrapped_socket, address, total_connections, "Name", True))
+                connections.append(Client(wrapped_socket, address, total_connections, name, True))
                 connections[len(connections) - 1].start()
-                print(f'New connection at ID {str(connections[len(connections) - 1])}')
+                print(f'New connection at ID {str(connections[len(connections) - 1])}, Name: {name}')
                 total_connections += 1
             except:
                 print(f'[ALERT] The client {address} has an unknown SSL certificate')
